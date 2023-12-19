@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #password {
+            font-size: 20px;
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Generator</h1>
+    <form id="passwordForm">
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" name="length" min="6" max="20" value="12">
+        <br>
+        <label for="uppercase">Include Uppercase:</label>
+        <input type="checkbox" id="uppercase" name="uppercase" checked>
+        <br>
+        <label for="lowercase">Include Lowercase:</label>
+        <input type="checkbox" id="lowercase" name="lowercase" checked>
+        <br>
+        <label for="numbers">Include Numbers:</label>
+        <input type="checkbox" id="numbers" name="numbers" checked>
+        <br>
+        <label for="symbols">Include Symbols:</label>
+        <input type="checkbox" id="symbols" name="symbols" checked>
+        <br>
+        <button type="button" onclick="generatePassword()">Generate Password</button>
+    </form>
+    <div id="password"></div>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+
+            const charset = (
+                (uppercase ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : '') +
+                (lowercase ? 'abcdefghijklmnopqrstuvwxyz' : '') +
+                (numbers ? '0123456789' : '') +
+                (symbols ? '!@#$%^&*()_+[]{}|;:,.<>?/' : '')
+            );
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+
+            document.getElementById('password').textContent = password;
+        }
+    </script>
+</body>
+</html>
